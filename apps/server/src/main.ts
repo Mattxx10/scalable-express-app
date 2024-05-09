@@ -56,6 +56,8 @@ const registerEndpointHandler = () => {
       app.get(endpoint, handler);
     } else if (method === 'POST') {
       app.post(endpoint, handler);
+    } else if (method === 'PUT') {
+      app.put(endpoint, handler);
     }
     // Add support for other HTTP methods (PUT, DELETE, etc.) if needed
   });
