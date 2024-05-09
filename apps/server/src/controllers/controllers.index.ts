@@ -1,7 +1,9 @@
-import { accountsMethods } from "./Accounts";
+import { accountsMethods } from './Accounts';
+import { usersMethods } from './Users';
 
 const controllers = {
-  ...accountsMethods,
+  accounts: accountsMethods,
+  users: usersMethods
 };
 
 export default controllers;
