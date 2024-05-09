@@ -1,48 +1,26 @@
 import db from '../../database';
-
-interface User {
-  _id: string;
-  // Add other properties as needed
-}
-
-interface Token {
-  account: {
-    id: string;
-    // Add other properties as needed
-  };
-}
-
-interface Config {
-  users: string[];
-}
-
-interface Endpoint {
-  fn: Function;
-  params: string[];
-  method: string;
-  permissions: string[];
-}
+import { User, Account, DecodedTokenPayload, Endpoint } from '../../utils/interfaces';
 
 interface AccountsMethods {
-  register: (user: User, config: Config) => Promise<any>;
-  getAccount: (token: Token) => Promise<any>;
-  getAccountById: (id: string) => Promise<any>;
-  deactivate: (token: Token) => Promise<any>;
+  register: (userId: String, config: Partial<Account>) => Promise<any>;
+  getAccount: (token: DecodedTokenPayload) => Promise<Account>;
+  getAccountById: (id: string) => Promise<Account>;
+  deactivate: (token: DecodedTokenPayload) => Promise<any>;
 }
 
 const accountsMethods: AccountsMethods = {
-  register: async (user, config) => {
-    // config.users.push(user._id);
+  register: async (userId, config) => {
+    config.users.push(userId + '');
     return db.create('Account', config);
   },
   getAccount: async (token) => {
-    return db.findOne('Account', { _id: token.account.id });
+    return db.findOne('Account', { _id: token.account._id });
   },
   getAccountById: async (id) => {
     return db.findOne('Account', { _id: id });
   },
   deactivate: async (token) => {
-    await db.updateOne('Account', { _id: token.account.id }, { active: false });
+    await db.updateOne('Account', { _id: token.account._id }, { active: false });
     return { success: true };
   }
 };
@@ -63,7 +41,7 @@ const accountEndpoints: { [key: string]: Endpoint } = {
   '/accounts/deactivate': {
     fn: accountsMethods.deactivate,
     params: ['token'],
-    method: 'POST',
+    method: 'PUT',
     permissions: ['authorized'],
   }
 };
