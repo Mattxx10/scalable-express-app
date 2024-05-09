@@ -8,7 +8,9 @@ interface Database {
   findMany: <T>(collection: string, query: object, fields?: object | null) => Promise<T[]>;
   create: <T>(collection: string, data: object) => Promise<T[]>;
   updateOne: <T>(collection: string, query: object, update: object, options?: object | null) => Promise<T | null>;
+  updateMany: <T>(collection: string, query: object, update: object, options?: object | null) => Promise<T | null>;
   deleteOne: <T>(collection: string, query: object) => Promise<any | null>;
+  deleteMany: <T>(collection: string, query: object) => Promise<any | null>;
   models?: { [key: string]: mongoose.Model<any> };
 };
 
@@ -57,9 +59,19 @@ const db: Database = {
     return model.findOneAndUpdate(query, update, { ...options, new: true }).exec();
   },
 
+  updateMany: async <T>(collection: string, query: object, update: object, options: object = {}): Promise<any> => {
+    const model = db.models![collection];
+    return model.updateMany(query, update, options).exec();
+  },
+
   deleteOne: async <T>(collection: string, query: object): Promise<any | null> => {
     const model = db.models[collection];
     return model.deleteOne(query).exec();
+  },
+
+  deleteMany: async <T>(collection: string, query: object): Promise<any> => {
+    const model = db.models![collection];
+    return model.deleteMany(query).exec();
   }
 };
 

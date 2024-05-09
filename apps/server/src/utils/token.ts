@@ -1,18 +1,9 @@
 import jwt, { Secret } from 'jsonwebtoken';
 import { controllers } from '../controllers';
-
-interface TokenPayload {
-  userId: string;
-  accountId: string;
-}
-
-interface DecodedTokenPayload {
-  user: object;
-  account: object;
-}
+import { TokenPayload, DecodedTokenPayload } from './interfaces';
 
 export const generateAuthToken = (payload: TokenPayload): string => {
-  const token = jwt.sign(payload, process.env.JWT_SECRET! as Secret, { expiresIn: '1h' });
+  const token = jwt.sign(payload, process.env.JWT_SECRET! as Secret, { expiresIn: '10h' });
   return token;
 };
 
@@ -27,10 +18,17 @@ export const verifyAuthToken = (token: string): Promise<DecodedTokenPayload> => 
         reject({ code: 'INVALID_TOKEN', message: 'Invalid token' });
       }
       
-      const account = await controllers.getAccountById(decoded.accountId);
-      const decodedToken = { user: {}, account };
+      const account = await controllers.accounts.getAccountById(decoded.accountId);
+      const user = await controllers.users.getUserById(decoded.userId);
+      const decodedToken = { user, account };
 
       resolve(decodedToken as DecodedTokenPayload);
     });
   });
 };
+
+export const generatePasswordToken = (payload: string): string => {
+  const token = jwt.sign(payload, process.env.JWT_PASSWORD_SECRET! as Secret);
+  return token;
+};
+
