@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import schemas from './schemas';
+import { options } from '../config/dbConfig';
 
 interface Database {
   connect: () => Promise<void>;
@@ -21,7 +22,7 @@ const db: Database = {
     const uri = process.env.MONGO_URI;
 
     try {
-      await mongoose.connect(uri!);
+      await mongoose.connect(uri!, options);
 
       db.models = {};
 
