@@ -6,19 +6,22 @@ const accountRoutes: { [key: string]: IRoute } = {
     fn: AccountContoller.registerAccount,
     params: ['user', 'config'],
     method: 'POST',
-    permissions: ['unauthorized'],
+    permissions: [],
+    authorized: false
   },
   '/accounts/account': {
     fn: AccountContoller.getAccountByToken,
     params: ['token'],
     method: 'GET',
-    permissions: ['authorized'],
+    permissions: [],
+    authorized: true
   },
   '/accounts/deactivate': {
     fn: AccountContoller.deactivateAccount,
     params: ['token'],
     method: 'PUT',
-    permissions: ['authorized'],
+    permissions: [],
+    authorized: true
   }
 };
 

@@ -7,18 +7,21 @@ const userRoutes: { [key: string]: IRoute } = {
     params: ['user', 'config'],
     method: 'POST',
     permissions: ['unauthorized'],
+    authorized: false
   },
   '/users/user': {
     fn: UserController.getUserByToken,
     params: [''],
     method: 'GET',
     permissions: ['authorized'],
+    authorized: true
   },
   '/users/deactivate': {
     fn: UserController.deactivateUser,
     params: [''],
     method: 'PUT',
     permissions: ['authorized'],
+    authorized: true
   }
 };
 

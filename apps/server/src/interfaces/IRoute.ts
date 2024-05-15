@@ -3,4 +3,5 @@ export interface IRoute {
   params: string[];
   method: string;
   permissions: string[];
+  authorized: boolean;
 }

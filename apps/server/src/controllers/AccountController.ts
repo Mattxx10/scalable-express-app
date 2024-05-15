@@ -1,11 +1,11 @@
 import db from '../database';
-import { User, Account, DecodedTokenPayload, Endpoint } from '../interfaces';
+import { IUser, IAccount, IDecodedTokenPayload, IRoute } from '../interfaces';
 
 interface IAccountController {
-  registerAccount: (userId: String, config: Partial<Account>) => Promise<any>;
-  getAccountByToken: (token: DecodedTokenPayload) => Promise<Account>;
-  getAccountById: (id: string) => Promise<Account>;
-  deactivateAccount: (token: DecodedTokenPayload) => Promise<any>;
+  registerAccount: (userId: String, config: Partial<IAccount>) => Promise<any>;
+  getAccountByToken: (token: IDecodedTokenPayload) => Promise<IAccount>;
+  getAccountById: (id: string) => Promise<IAccount>;
+  deactivateAccount: (token: IDecodedTokenPayload) => Promise<any>;
 }
 
 const AccountContoller: IAccountController = {
