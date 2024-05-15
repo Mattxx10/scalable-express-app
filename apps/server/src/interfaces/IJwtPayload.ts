@@ -1,4 +1,4 @@
-export interface TokenPayload {
+export interface ITokenPayload {
   user: string,
   account: string
 }

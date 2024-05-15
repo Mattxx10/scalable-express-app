@@ -7,7 +7,7 @@ import compression from 'compression';
 import morgan from 'morgan';
 import db from '../src/database';
 import bodyParser from 'body-parser';
-import { endpoints } from '../src/controllers';
+import { routes } from './routes';
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -26,7 +26,7 @@ app.use(compression());
 app.use(bodyParser.json());
 
 const registerEndpointHandler = () => {
-  Object.entries(endpoints).forEach(([endpoint, { fn, params, method, permissions }]) => {
+  Object.entries(routes).forEach(([route, { fn, params, method, permissions }]) => {
     const handler = async (req, res) => {
       try {
         if (permissions && permissions.includes('authorized')) {
@@ -53,11 +53,11 @@ const registerEndpointHandler = () => {
   
     // Assign the handler function to the corresponding HTTP method and endpoint
     if (method === 'GET') {
-      app.get(endpoint, handler);
+      app.get(route, handler);
     } else if (method === 'POST') {
-      app.post(endpoint, handler);
+      app.post(route, handler);
     } else if (method === 'PUT') {
-      app.put(endpoint, handler);
+      app.put(route, handler);
     }
     // Add support for other HTTP methods (PUT, DELETE, etc.) if needed
   });

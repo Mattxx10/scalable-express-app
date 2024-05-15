@@ -1,17 +1,17 @@
 import db from '../database';
-import { User } from '../utils/interfaces';
+import { IUser } from '../interfaces';
 
-interface UsersServices {
-  create: (userData: Partial<User>) => Promise<any>;
-  read: (userQuery: Partial<User>) => Promise<User>;
-  readMany: (userQuery: Partial<User>) => Promise<any>;
-  update: (userQuery: Partial<User>, userUpdate: Partial<User>) => Promise<User>;
-  updateMany: (userQuery: Partial<User>, userUpdate: Partial<User>) => Promise<User>;
-  delete: (userQuery: Partial<User>) => Promise<any>;
-  deleteMany: (userQuery: Partial<User>) => Promise<any>;
+interface IUserService {
+  create: (userData: Partial<IUser>) => Promise<any>;
+  read: (userQuery: Partial<IUser>) => Promise<IUser>;
+  readMany: (userQuery: Partial<IUser>) => Promise<any>;
+  update: (userQuery: Partial<IUser>, userUpdate: Partial<IUser>) => Promise<IUser>;
+  updateMany: (userQuery: Partial<IUser>, userUpdate: Partial<IUser>) => Promise<IUser>;
+  delete: (userQuery: Partial<IUser>) => Promise<any>;
+  deleteMany: (userQuery: Partial<IUser>) => Promise<any>;
 }
 
-export const usersServices: UsersServices = {
+const userService: IUserService = {
   create: async (userData) => {
     return db.create('User', userData);
   },
@@ -35,3 +35,5 @@ export const usersServices: UsersServices = {
     return db.deleteMany('User', userQuery);
   }
 };
+
+export { userService, IUserService };

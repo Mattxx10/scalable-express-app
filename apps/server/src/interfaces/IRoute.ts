@@ -1,4 +1,4 @@
-export interface Endpoint {
+export interface IRoute {
   fn: Function;
   params: string[];
   method: string;

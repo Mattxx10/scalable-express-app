@@ -1,4 +1,4 @@
-import controllers from "./controllers.index";
-import endpoints from "./endpoints.index";
+import { AccountContoller } from "./AccountController";
+import { UserController } from "./UserController";
 
-export { controllers, endpoints };
+export { AccountContoller, UserController };

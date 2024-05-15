@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { Account } from '../../utils/interfaces';
+import { Account } from '../../interfaces';
 
 const accountSchema = new mongoose.Schema<Account>({
   name: { type: String, required: true },

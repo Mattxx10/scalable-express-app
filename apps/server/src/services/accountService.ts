@@ -1,14 +1,14 @@
 import db from '../database';
-import { Account } from '../utils/interfaces';
+import { IAccount } from '../interfaces';
 
 interface AccountsServices {
-  create: (accountData: Partial<Account>) => Promise<any>;
-  read: (accountQuery: Partial<Account>) => Promise<Account>;
-  readMany: (accountQuery: Partial<Account>) => Promise<any>;
-  update: (accountQuery: Partial<Account>, accountUpdate: Partial<Account>) => Promise<Account>;
-  updateMany: (accountQuery: Partial<Account>, accountUpdate: Partial<Account>) => Promise<Account>;
-  delete: (accountQuery: Partial<Account>) => Promise<any>;
-  deleteMany: (accountQuery: Partial<Account>) => Promise<any>;
+  create: (accountData: Partial<IAccount>) => Promise<any>;
+  read: (accountQuery: Partial<IAccount>) => Promise<IAccount>;
+  readMany: (accountQuery: Partial<IAccount>) => Promise<any>;
+  update: (accountQuery: Partial<IAccount>, accountUpdate: Partial<IAccount>) => Promise<IAccount>;
+  updateMany: (accountQuery: Partial<IAccount>, accountUpdate: Partial<IAccount>) => Promise<IAccount>;
+  delete: (accountQuery: Partial<IAccount>) => Promise<any>;
+  deleteMany: (accountQuery: Partial<IAccount>) => Promise<any>;
 }
 
 export const accountsServices: AccountsServices = {
